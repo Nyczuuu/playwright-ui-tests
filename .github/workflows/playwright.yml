@@ -1,0 +1,31 @@
+name: Run Playwright Tests
+
+on:
+  push:
+    branches:
+      - main   # Uruchomi testy, gdy pushujesz na główną gałąź
+  pull_request:
+    branches:
+      - main   # Uruchomi testy, gdy otwierasz pull request
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest   # Uruchamianie testów na maszynie Ubuntu
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2   # Sprawdza kod z repozytorium
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'   # Wersja Node.js
+
+    - name: Install dependencies
+      run: |
+        npm install   # Instalowanie zależności projektu
+
+    - name: Run Playwright tests
+      run: |
+        npx playwright install   # Instalowanie przeglądarek
+        npx playwright test       # Uruchamianie testów
